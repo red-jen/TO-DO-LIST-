@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management Board</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <button class="btn" onclick="showAddTaskModal()">Add Task +</button>
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="Search..." onkeyup="searchTasks()">
+        </div>
+        <button class="btn" onclick="showAddMultipleModal()">Add multiple +</button>
+    </div>
+
+    <div class="board">
+        <div class="column">
+            <div class="column-header">
+                <span class="column-title">To do</span>
+                <span class="task-count" id="todo-count">0</span>
+            </div>
+            <div id="todo-tasks"></div>
+        </div>
+
+        <div class="column">
+            <div class="column-header">
+                <span class="column-title">In progress</span>
+                <span class="task-count" id="progress-count">0</span>
+            </div>
+            <div id="progress-tasks"></div>
+        </div>
+
+        <div class="column">
+            <div class="column-header">
+                <span class="column-title">Done</span>
+                <span class="task-count" id="done-count">0</span>
+            </div>
+            <div id="done-tasks"></div>
+        </div>
+    </div>
+
+    <div id="addTaskModal" class="modal">
+        <div class="modal-content">
+            <h2>Add New Task</h2>
+            <input type="text" id="taskInput" placeholder="Enter task name">
+            <select id="statusSelect">
+                <option value="todo">To Do</option>
+                <option value="progress">In Progress</option>
+                <option value="done">Done</option>
+            </select>
+            <div class="modal-buttons">
+                <button class="btn" onclick="addTask()">Add</button>
+                <button class="btn" onclick="closeModal('addTaskModal')" style="background-color: #grey;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./index.js">
+      
+    </script>
+</body>
+</html>
