@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./todo.css">
    
     <title>let's begin the work</title>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-#F6F5F3 min-h-screen ">
     <!-- Header Section -->
     <header class="bg-white shadow-lg">
         <nav class="container mx-auto px-8 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-gray-800">Task Management Pro</h1>
+                    <h1 class="text-2xl font-bold text-gray-800 bg-background text-textPrimary">Task Management Pro</h1>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <button id="addTask" onclick="openAddTaskModal()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition duration-200 flex items-center">
+                    <button id="addTask" onclick="openAddTaskModal()" class="bg-fuchsia-600 hover:bg-fuchsia-700 text-white px-4 py-2 rounded-lg transition duration-200 flex items-center">
                         <i class="fas fa-plus mr-2"></i> Nouvelle Tâche
                     </button>
-                    <button id="Multiple" onclick="openAddMultipleTasksModal()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition duration-200 flex items-center">
+                    <button id="Multiple" onclick="openAddMultipleTasksModal()" class="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg transition duration-200 flex items-center">
                         <i class="fas fa-list mr-2"></i> Multiples Tâches
                     </button>
                 </div>
@@ -55,20 +56,20 @@
     <div class="container mx-auto px-6 mb-6">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div class="bg-white rounded-lg shadow-md p-4">
-                <h3 class="text-lg font-semibold text-gray-700">Total des tâches</h3>
+                <h3 class="text-lg font-semiboldtext-purple-600">Total des tâches</h3>
                 <p class="text-3xl font-bold text-blue-500" id="totalTasks">0</p>
             </div>
             <div class="bg-white rounded-lg shadow-md p-4">
-                <h3 class="text-lg font-semibold text-gray-700">À faire</h3>
+                <h3 class="text-lg font-semibold text-teal-600">À faire</h3>
                 <p class="text-3xl font-bold text-gray-500" id="todoCount">0</p>
             </div>
             <div class="bg-white rounded-lg shadow-md p-4">
-                <h3 class="text-lg font-semibold text-gray-700">En cours</h3>
+                <h3 class="text-lg font-semibold text-orange-500">En cours</h3>
                 <p class="text-3xl font-bold text-yellow-500" id="doingCount">0</p>
             </div>
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h3 class="text-lg font-semibold text-gray-700">Terminées</h3>
-                <p class="text-3xl font-bold text-green-500" id="doneCount">0</p>
+                <p class="text-3xl font-bold text-cyan-600" id="doneCount">0</p>
             </div>
         </div>
     </div>
@@ -77,15 +78,23 @@
     <div class="container mx-auto px-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="taskBoard">
             <!-- To Do Column -->
-            <div class="bg-white rounded-lg shadow-md">
+            <div class="bg-white/70 backdrop-blur-sm rounded-lg shadow-md">
                 <div class="p-4 border-b">
                     <h2 class="text-lg font-semibold text-gray-700">À faire</h2>
                 </div>
-                <div class="p-4 min-h-[200px]" id="todoTasks"></div>
+                <div class="p-4 min-h-[200px] bg-slate-400" id="todoTasks">
+                    <div id="Task" class="bg- p-5">
+                        <h2 id="myTask " class="bg-slate-500">tasktitle</h2>
+                           <h3 id="myDetails"  class="bg-slate-300 pe-3 text-ellipsis overflow-hidden text-nowrap text-gray-900 font-thin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eveniet tenetur, illum dolorem, et eos ullam necessitatibus unde modi quod officia! Eaque laboriosam magni, cumque fugit molestiae id omnis possimus!</h3>
+                           <button class="bg-gray-600 rounded-md font-serif font-medium w-20">edit</button>
+                           <button  class="bg-stone-600 rounded-md font-serif font-medium w-20 float-end" >delete</button>
+                        
+                        </div>
+                </div>
             </div>
 
             <!-- Doing Column -->
-            <div class="bg-white rounded-lg shadow-md">
+            <div class="bg-white/70 backdrop-blur-sm rounded-lg shadow-md">
                 <div class="p-4 border-b">
                     <h2 class="text-lg font-semibold text-gray-700">En cours</h2>
                 </div>
@@ -93,7 +102,7 @@
             </div>
 
             <!-- Done Column -->
-            <div class="bg-white rounded-lg shadow-md">
+            <div class="bg-white/70 backdrop-blur-sm rounded-lg shadow-md">
                 <div class="p-4 border-b">
                     <h2 class="text-lg font-semibold text-gray-700">Terminées</h2>
                 </div>
@@ -131,8 +140,8 @@
                         </div>
                     </div>
                     <div class="flex justify-end space-x-2">
-                        <button type="button" onclick="closeAddTaskModal()" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">Annuler</button>
-                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Ajouter</button>
+                        <button id="MyHidde" type="reset"  class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">Annuler</button>
+                        <button type="submit" onclick="closeAddTaskModal()" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Ajouter</button>
                     </div>
                 </form>
             </div>
