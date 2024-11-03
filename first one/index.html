@@ -3,62 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Management Board</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Random Moving Button Game</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .game-container {
+            width: 80vw;
+            height: 80vh;
+            position: relative;
+            border: 2px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .btn {
+            position: absolute;
+            padding: 15px 30px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            transform: translate(0, 0);
+            user-select: none;
+        }
+
+        .score {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .caught {
+            background-color: #4CAF50 !important;
+            animation: success 0.5s ease;
+        }
+
+        @keyframes success {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
-    <div class="header">
-        <button class="btn" onclick="showAddTaskModal()">Add Task +</button>
-        <div class="search-container">
-            <input type="text" class="search-box" placeholder="Search..." onkeyup="searchTasks()">
-        </div>
-        <button class="btn" onclick="showAddMultipleModal()">Add multiple +</button>
+    <div class="score">Score: <span id="score">0</span></div>
+    <div class="game-container">
+        <button class="btn">Catch me!</button>
     </div>
 
-    <div class="board">
-        <div class="column">
-            <div class="column-header">
-                <span class="column-title">To do</span>
-                <span class="task-count" id="todo-count">0</span>
-            </div>
-            <div id="todo-tasks"></div>
-        </div>
+    <script>
+        const button = document.querySelector('.btn');
+        const container = document.querySelector('.game-container');
+        const scoreElement = document.getElementById('score');
+        let score = 0;
+        let canMove = true;
 
-        <div class="column">
-            <div class="column-header">
-                <span class="column-title">In progress</span>
-                <span class="task-count" id="progress-count">0</span>
-            </div>
-            <div id="progress-tasks"></div>
-        </div>
+        function getRandomPosition() {
+            // Get container and button dimensions
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = button.getBoundingClientRect();
 
-        <div class="column">
-            <div class="column-header">
-                <span class="column-title">Done</span>
-                <span class="task-count" id="done-count">0</span>
-            </div>
-            <div id="done-tasks"></div>
-        </div>
-    </div>
+            // Calculate maximum allowed positions
+            const maxX = containerRect.width - buttonRect.width;
+            const maxY = containerRect.height - buttonRect.height;
 
-    <div id="addTaskModal" class="modal">
-        <div class="modal-content">
-            <h2>Add New Task</h2>
-            <input type="text" id="taskInput" placeholder="Enter task name">
-            <select id="statusSelect">
-                <option value="todo">To Do</option>
-                <option value="progress">In Progress</option>
-                <option value="done">Done</option>
-            </select>
-            <div class="modal-buttons">
-                <button class="btn" onclick="addTask()">Add</button>
-                <button class="btn" onclick="closeModal('addTaskModal')" style="background-color: #grey;">Cancel</button>
-            </div>
-        </div>
-    </div>
+            // Generate random percentages (keeping button fully visible)
+            const randomX = (Math.random() * maxX) / containerRect.width * 100;
+            const randomY = (Math.random() * maxY) / containerRect.height * 100;
 
-    <script src="./index.js">
-      
+            return { x: randomX, y: randomY };
+        }
+
+        function moveButton() {
+            if (!canMove) return;
+
+            const { x, y } = getRandomPosition();
+            
+            // Apply new position using percentage-based transforms
+            button.style.transform = translate(${x}%, ${y}%);
+        }
+
+        function handleCatch() {
+            if (!canMove) return;
+            
+            score++;
+            scoreElement.textContent = score;
+            canMove = false;
+
+            // Add caught animation
+            button.classList.add('caught');
+
+            // Reset after animation
+            setTimeout(() => {
+                button.classList.remove('caught');
+                canMove = true;
+                moveButton();
+            }, 500);
+        }
+
+        // Prevent button from getting stuck at edges on window resize
+        function handleResize() {
+            moveButton();
+        }
+
+        // Move on hover
+        button.addEventListener('mouseover', moveButton);
+
+        // Handle successful clicks
+        button.addEventListener('click', handleCatch);
+
+        // Handle touch for mobile
+        button.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleCatch();
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', handleResize);
+
+        // Initial random position
+        moveButton();
+
+        // Add keyboard support
+        document.addEventListener('keypress', (e) => {
+            if (e.code === 'Space' || e.code === 'Enter') {
+                handleCatch();
+            }
+        });
+
+        // Prevent dragging the button
+        button.addEventListener('dragstart', (e) => {
+            e.preventDefault();
+        });
     </script>
 </body>
 </html>

@@ -14,7 +14,7 @@
         <nav class="container mx-auto px-8 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-gray-800 bg-background text-textPrimary">Task Management Pro</h1>
+                    <h1 id="mySearch" class="text-2xl font-bold text-gray-800 bg-background text-textPrimary">Task Management Pro</h1>
                 </div>
                 <div class="flex items-center space-x-4">
                     <button id="addTask" onclick="openAddTaskModal()" class="bg-fuchsia-600 hover:bg-fuchsia-700 text-white px-4 py-2 rounded-lg transition duration-200 flex items-center">
@@ -113,7 +113,7 @@
 
     <!-- Add Task Modal -->
     <div id="addTaskModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-amber-100">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div class="mt-3">
                 <h3 class="text-lg font-medium text-gray-900 mb-4">Nouvelle tâche</h3>
                 <form id="addTaskForm" class="space-y-4">
@@ -147,11 +147,8 @@
             </div>
         </div>
     </div>
-
-
-    
 <script src="./tailwind-css.js"></script>
-<script src="./to-do.js"></script>
+<script src="./page.js"></script>
 </body>4
 
 </html>
